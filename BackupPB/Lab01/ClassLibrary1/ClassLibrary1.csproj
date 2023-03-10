@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<!-- W wesjach .NET starszych niż 5 element dla pliku xsd powinien już gdzieś istnieć - modyfikujemy go dodając element Generator.
+ W wersji 5 bywa róźnie. Czasami trzeba go po prostu dodać. -->
+	<ItemGroup>
+		<ResourceFile Include="XMLSchema1.xsd">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateClassesFromXSD</Generator>
+		</ResourceFile>
+	</ItemGroup>
+
+	<!-- Te elmenty dodajemy na końcu pliku, przed </Project> -->
+	<Target Name="UpdateClassesFromXSD" DependsOnTargets="_UpdateClassesFromXSD" Condition="'@(ResourceFile)' != ''">
+		<ItemGroup>
+			<Compile Include="$(IntermediateOutputPath)fromxsd/*.cs" />
+		</ItemGroup>
+	</Target>
+	<Target Name="_UpdateClassesFromXSD" Inputs="XMLSchema1.xsd" Outputs="$(IntermediateOutputPath)fromxsd/*.cs">
+		<Exec Command="mkdir $(IntermediateOutputPath)fromxsd" IgnoreExitCode="true" />
+		<Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\xsd.exe&quot; /c /n:Library /out:$(IntermediateOutputPath)fromxsd XMLSchema1.xsd" />
+	</Target>
+	<PropertyGroup>
+		<CoreCompileDependsOn>UpdateClassesFromXSD;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+	</PropertyGroup>
+
+</Project>
+

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- W wesjach .NET starszych niż 5 element dla pliku xsd powinien już gdzieś istnieć - modyfikujemy go dodając element Generator.
+ W wersji 5 bywa róźnie. Czasami trzeba go po prostu dodać. -->
+	<ItemGroup>
+		<ResourceFile Include="race.xsd">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateClassesFromXSD</Generator>
+		</ResourceFile>
+	</ItemGroup>
+
+	<!-- Te elmenty dodajemy na końcu pliku, przed </Project> -->
+	<Target Name="UpdateClassesFromXSD" DependsOnTargets="_UpdateClassesFromXSD" Condition="'@(ResourceFile)' != ''">
+		<ItemGroup>
+			<Compile Include="$(IntermediateOutputPath)fromxsd/*.cs" />
+		</ItemGroup>
+	</Target>
+	<Target Name="_UpdateClassesFromXSD" Inputs="race.xsd" Outputs="$(IntermediateOutputPath)fromxsd/*.cs">
+		<Exec Command="mkdir $(IntermediateOutputPath)fromxsd" IgnoreExitCode="true" />
+		<Exec Command="&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\xsd.exe&quot; /c /n:race /out:$(IntermediateOutputPath)fromxsd race.xsd" />
+	</Target>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	  <CoreCompileDependsOn>UpdateClassesFromXSD;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+  </PropertyGroup>
+
+</Project>

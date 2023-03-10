@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formulaT xmlns="http://example.org/race.xsd">
+  <tracks>
+   <track>
+    <id>13</id>
+    <name>Yellowstone</name>
+    <length>5.891</length>
+    <corners>
+      <corner name="Copse" />
+      <corner name="Maggotts" />
+      <corner name="Becketts" />
+      <corner name="Chapel" />
+      <corner name="Stowe" />
+      <corner name="Vale" />
+      <corner name="Club" />
+      <corner name="Abbey" />
+      <corner name="Luffield" />
+      <corner name="Woodcote" />
+    </corners>
+   </track>
+   <track>
+    <id>1</id>
+    <name>Mini Circuit</name>
+    <length>7</length>
+    <corners>
+      <corner name="ProjOb" />
+      <corner name="ASD2" />
+      <corner name="SOP" />
+    </corners>
+   </track>
+  </tracks>
+  <events>
+   <event>
+    <name>Grand Prix of Slowness</name>
+    <date>2021-04-02</date>
+    <track id="13" />
+    <participant>T23</participant>
+    <participant>T000</participant>
+   </event>
+   <event>
+    <name>Superfast Race</name>
+    <date>2021-04-03</date>
+    <track id="13" />
+    <participant>T000</participant>
+    <participant>T23</participant>
+    <participant>T9324532512</participant>
+   </event>
+  </events>
+  <people>
+   <tortoise startNumber="T23">
+     <nick>Brewster</nick>
+     <color>light green</color>
+   </tortoise>
+   <tortoise startNumber="T000">
+     <nick>Coco</nick>
+     <color>green</color>
+     <turbo />
+   </tortoise>
+   <tortoise startNumber="T9324532512">
+     <nick>Wilson</nick>
+     <color>dark green</color>
+   </tortoise>
+   <spectator>
+     <nick>Irving</nick>
+     <color>dark green</color>
+   </spectator>
+   <spectator>
+     <nick>Pete</nick>
+     <color>dark green</color>
+   </spectator>
+  </people>
+</formulaT>

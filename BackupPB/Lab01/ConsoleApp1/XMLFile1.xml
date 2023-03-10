@@ -1,0 +1,45 @@
+﻿<library xmlns="http://example.org/kb/library">
+	<book title="Inaczej" year="2020" lang="PL">
+		<author_ref id="kot"/>
+	</book>
+
+	<book title="How Google works?" year="2014" lang="EN">
+		<author_ref id="rose"/>
+		<author_ref id="schm"/>
+	</book>
+
+	<book title="Red Prohpet" year="1988" lang="EN">
+		<author_ref id="osc"/>
+	</book>
+
+	<book title="Earthborn" year="1995" lang="EN">
+		<author_ref id="osc"/>
+	</book>
+
+	<magazine number="1" title="aaaaa" year="1999">
+		<ediotor_ref id="kot" />
+	</magazine>
+
+	<author_main id="rose">
+		<name>Jonathan</name>
+		<surname>Rosenberg</surname>
+	</author_main>
+	
+	<author_main id="osc">
+		<name>Orson</name>
+		<name>Scott</name>
+		<surname>Card</surname>
+	</author_main>
+
+	<author_main id="schm">
+		<name>Eric</name>
+		<name>Emerson</name>
+		<surname>Schmidt</surname>
+	</author_main>
+	
+	<author_main id="kot">
+		<name>Radoslaw</name>
+		<name>Jerzy</name>
+		<surname>Kotarski</surname>
+	</author_main>
+</library>

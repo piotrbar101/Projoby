@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+	targetNamespace="http://example.org/kb/library"
+	elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:lib="http://example.org/kb/library"
+>
+
+	<xs:element name="library" type="lib:typeLibrary">
+		<xs:key name="authorKey">
+			<xs:selector xpath="lib:author_main"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
+		
+		<xs:keyref name="authorRef" refer="lib:authorKey">
+			<xs:selector xpath="lib:book/lib:author_ref"/>
+			<xs:field xpath="@id"/>
+		</xs:keyref>		
+
+		<xs:keyref name="authorRef2" refer="lib:authorKey">
+			<xs:selector xpath="lib:magazine/lib:editor_ref"/>
+			<xs:field xpath="@id"/>
+		</xs:keyref>
+	</xs:element>
+
+	<xs:complexType name="typeLibrary">
+		<xs:sequence>
+			<xs:element name="book" type="lib:typeBook" maxOccurs="unbounded"/>
+			<xs:element name="magazine" type="lib:typeMagazine" maxOccurs="unbounded"/>
+			<xs:element name="author_main" type="lib:typeAuthor_main" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="typePublication">
+		<xs:attribute name="title" type="lib:typeTitle"/>
+		<xs:attribute name="year" type="lib:typeYear"/>
+	</xs:complexType>
+
+	<xs:complexType name="typeBook">
+		<xs:complexContent>
+			<xs:extension base="lib:typePublication">
+				<xs:sequence>
+					<xs:element name="author_ref" type="lib:typeAuthor_ref" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="lang" type="lib:typeLang"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="typeMagazine">
+		<xs:complexContent>
+			<xs:extension base="lib:typePublication">
+				<xs:sequence>
+					<xs:element name="ediotor_ref" type="lib:typeAuthor_ref" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="number" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="typeAuthor_main">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="surname" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="typeAuthor_ref">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+		
+	<xs:simpleType name="typeTitle">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="typeLang">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EN"/>
+			<xs:enumeration value="PL"/>
+			<xs:enumeration value="TLH"/>
+		</xs:restriction> 
+	</xs:simpleType>
+	
+	<xs:simpleType name="typeYear">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1120"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

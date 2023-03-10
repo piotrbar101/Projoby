@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Wyścig żółwi</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Wyścig żółwi</h1>
+</header>
+<h1 id="zadanie-zaliczeniowe-xml-6-marca-2021-1715">Zadanie zaliczeniowe XML 6 marca 2021 17:15</h1>
+<p>Na rozwiązanie zadania jest 90 minut, rozwiązanie należy wysłać najpóźniej o 18:45. Mozna zdobyć 10 punktów. W trakcie rozwiązywania można korzystać z tutoriala z zajęć, swojego własnego kody z zajęć, ogólnodostępnych materiałów w Internecie. Nie można korzystać z rozwiązań innych osób lub konsultować się z kimkolwiek oprócz prowadzącego lab.</p>
+<h2 id="wysyłanie-rozwiązania">Wysyłanie rozwiązania</h2>
+<p>Należy wysłać XML, XSD i cały projekt C#. Przed wysłaniem rozwiązania należy usunąć wszelkie pliki binarne (bin, obj, .vs). Rozwiązanie należy wysłać jako pojedynczy plik zip w moodle.</p>
+<h1 id="dane-do-przechowania">Dane do przechowania</h1>
+<p>Należy przechować dane opisujące wyścigi żółwi. Na opis sezonu wyścigów składają się następujące informacje:</p>
+<ul>
+<li>opisy torów wyścigowych,</li>
+<li>opisy uczestników,</li>
+<li>opisy wyścigów (wydarzeń na torze wyścigowym z udziałem konkretnych uczestników).</li>
+</ul>
+<p>Dostarczony jest przykładowy plik z danymi, który zawiera dane w oczekiwanym formacie.</p>
+<p>Korzeniem dokumentu jest element formulaT. Wewnątrz tego elementu znajdują się elementy tracks, events i people. Każdy z elementów występuje dokładnie raz, elementy są dokładnie w tej kolejności.</p>
+<p>Struktura poszczególnych elementów jest następująca:</p>
+<ul>
+<li><p>element <code>tracks</code> zawiera jeden lub więcej <code>track</code>. <code>track</code> opisuje tor, na którym rozgrywany jest wyścig. Zawiera elementy dokładnie w tej kolejności. Wszystkie obowiązkowe.</p>
+<ul>
+<li>id – dodatnia liczba całkowita. Identyfikator toru. Musi być unikatowy w całym dokumencie.</li>
+<li>name – dowolny ciąg znaków definiujący nazwę toru.</li>
+<li>length – ułamek definiujący długość toru w km</li>
+<li>corners – zawiera listę od 2 do 25 zakrętów na torze. Każdy zakręt opisany jest elementem corner zawartym w środku. Każdy element corner ma obowiązkowy atrybut name, którego wartość jest dowolnym ciągiem znaków. Nazwa zakrętu musi być unikatowa w obrębie toru. <em>Może się natomiast powtórzyć w innym torze w jednym dokumencie.</em></li>
+</ul></li>
+<li><p><code>events</code> zawiera dwa lub więcej elementy <code>event</code>. <code>event</code> opisuje wyścig, który konkretni zawodnicy rozgrywają na danym torze. Zawiera elementy w dokładnie tej kolejności</p>
+<ul>
+<li>name – dowolny napis definiujący nazwę wyścigu</li>
+<li>date – data wyścigu w formacie rok-miesiąc-dzień</li>
+<li>track – element definiujący tor, na którym jest rozgrywany wyścig. Obowiązkowy atrybut id musi wskazywać na id toru w dokumencie</li>
+<li>dwa lub więcej elementy participant, definiujące uczestników. Zawartość elementu musi być numerem startowym żółwia opisanego w dokumencie.</li>
+</ul></li>
+<li><p>element <code>people</code> zawiera najpierw dwa lub więcej elementy <code>tortoise</code>, a następnie zero lub więcej elementów <code>spectator</code>, dokładnie w tej kolejności.</p>
+<ul>
+<li><p>spectator opisuje kibica. Elementy wewnętrzne dokładnie w te kolejności.</p>
+<ul>
+<li><p>element nick – ksywka kibica. Napis o długości co najmniej jeden, rozpoczynający się od wielkiej litery alfabetu łacińskiego. Obowiązkowy.</p></li>
+<li><p>element color – opisuje kolor kibica. Obowiązkowy. Jedna z trzech wartości:</p>
+<ul>
+<li>green</li>
+<li>light green</li>
+<li>dark green</li>
+</ul></li>
+</ul></li>
+<li><p>tortoise opisuje zawodnika startującego w wyścigach. Elementy wewnętrzne dokładnie w tej kolejności.</p>
+<ul>
+<li><p>obowiązkowy atrybut startNumber. Zawiera numer startowy złożony zawsze z wielkiej litery T, a następnie ciągu jednej lub więcej cyfr. Wartość atrybutu musi być unikatowa w całym dokumencie.</p></li>
+<li><p>element nick – ksywka gracza napis o długości co najmniej jeden, rozpoczynający się od wielkiej litery alfabetu łacińskiego. Obowiązkowy.</p></li>
+<li><p>element color – opisuje kolor żółwia. Obowiązkowy. Jedna z trzech wartości:</p>
+<ul>
+<li>green</li>
+<li>light green</li>
+<li>dark green</li>
+</ul></li>
+<li><p>element turbo. Opcjonalny. Mówi, że żółw ma turbiny zwiększające ciśnienie powietrza w płucach, a co za tym idzie zwiększające wydolność. Element musi być pusty.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="zasady-oceniania">Zasady oceniania</h1>
+<ul>
+<li>(2 punkt) Zdefiniować XSD, który będzie sprawdzał strukturę dokumentu i typy danych. Na razie nie musi weryfikować unikatowości i referencji. Zmodyfikować XML tak, aby korzystał ze zdefiniowanego XSD.</li>
+<li>(1 punktu) Nie definiować wielokrotnie wspólnej części typów elementów tortoise i spectator w XSD.</li>
+<li>(1 punkt) Napisać program w , który wczytuje XML podany jako argument linii poleceń i wypisuje na stdout spotkania w postaci: <code>Wyścig: &lt;name&gt;, uczestnicy: &lt;nick&gt;, &lt;nick&gt;, ...</code> (tu wypisać nazwę wyścigu oraz nicki uczestników wyścigu).)</li>
+<li>(1 punkt) Rozwiązanie jest podzielone na dwa projekty: bibliotekę z klasami i metodami pomocniczymi do deserializacji i główny projekt z aplikacją konsolową.</li>
+<li>(1 punkt) Klasy do deserializacji są automatycznie generowane z pliku XSD w trakcie kompilacji.</li>
+<li>(1 punktu) W przypadku, gdy plik podany jako argument nie jest zgodny z XSD, program wypisuje błąd i kończy działanie.</li>
+<li>(2 punkt) Wymusić unikatowość kluczy id każdego z torów oraz startNumber każdego w żółwi i poprawność referencji na nie.</li>
+<li>(1 punkt) Wymusić unikatowość participant w każdym <code>event</code></li>
+</ul>
+</body>
+</html>
